@@ -1,0 +1,57 @@
+﻿#include <iostream>
+#include <conio.h>
+
+//#include <vector>
+/*функция сортировки, в нее мы передаем указатель на
+первый елемент, первый и последний елементы*/
+void sort(int* arr, int left, int right) {
+	int i, j, x, y;
+	//устанавливаем наши границы от которых будем двигаться к центру
+	i = left; j = right;
+	//выбираем центральную точку от которой и будет происходить сравнение
+	x = arr[(left + right) / 2];
+	//начинаем цикл сортировки
+	do
+	{
+		//проверяем и обновляем наши границы
+		while ((arr[i] < x) && (i < right)) { i++; }
+		while ((x < arr[j]) && (j > left)) { j--; }
+		/*сама сортировка
+		(пока наши границы не встретились меняем большие значение центральной точки слева с меньшими значениями центральной точки справа)*/
+		if (i <= j) {
+			y = arr[i];
+			arr[i] = arr[j];
+			arr[j] = y;
+			i++;
+			j--;
+
+		}
+	} while (i <= j);
+	//пока границы не сошлись в центральной точке вызываем сортировка
+	if (left < j)  sort(arr, left, j);
+	if (i < right) sort(arr, i, right);
+};
+const long len = 5;
+using namespace std;
+int main() {
+
+	//vector<long> VectorL;
+						//обьявляем массив
+	int arr[len];
+	//инициализируем
+	for (int i = 0; i < len; i++) {
+		cin >> arr[i];
+	}
+	//вызываем функцию сортировки
+	sort(arr, 0, (len-1));
+	//выводим массив
+	for (int i = 0; i < len; i++) {
+		cout << "Number " << i+1 << " is: ";
+		cout << arr[i]<<" ";
+	}
+	//конец
+	_getch();
+	system("pause");
+	return 0;
+}
+
